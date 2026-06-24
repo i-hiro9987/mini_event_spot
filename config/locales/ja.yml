@@ -18,3 +18,9 @@ ja:
         blank: を入力して下さい
         too_long: は%{count}文字以内で入力してください
         too_short: は%{count}文字以上で入力してください
+  time:
+    formats:
+      long: "%Y年%m月%d日 %H:%M"
+  date:
+    formats:
+      long: "%Y年%m月%d日"

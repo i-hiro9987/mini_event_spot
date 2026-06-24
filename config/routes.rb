@@ -6,4 +6,10 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
   root "welcome#index"
+
+  resources :events
+
+  get "/auth/:provider/callback", to: "sessions#create"
+  post "/auth/:provider/callback", to: "sessions#create"
+  delete "logout", to: "sessions#destroy"
 end

@@ -23,9 +23,9 @@
             <span class="navbar-text me-3">
               <%= current_user.name %>
             </span>
-            <%= link_to "ログアウト", logout_path, method: :delete, class: "btn btn-outline-light" %>
+            <%= button_to "ログアウト", logout_path, method: :delete, class: "btn btn-outline-light", form: { style: "display: inline;" } %>
           <% else %>
-            <%= link_to "GitHubでログイン", "/auth/github", method: :post, class: "btn btn-light" %>
+            <%= button_to "GitHubでログイン", "/auth/github", method: :post, class: "btn btn-light", data: { turbo: false } %>
           <% end %>
         </div>
       </div>
