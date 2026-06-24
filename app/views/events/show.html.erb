@@ -1,53 +1,53 @@
 <div class="card mb-4">
   <div class="card-body">
-    <h1 class="card-title"><%=@event.name%></h1>
+    <h1 class="card-title"><%= @event.name %></h1>
 
     <div class="mb-3">
       <strong>開催日時:</strong><br>
-      <%= l@event.start_at,format::long%> 〜 <%= l@event.end_at,format::long%>
+      <%= l @event.start_at, format: :long %> 〜 <%= l @event.end_at, format: :long %>
     </div>
 
     <div class="mb-3">
       <strong>開催場所:</strong><br>
-      <%=@event.location%>
+      <%= @event.location %>
     </div>
 
     <div class="mb-3">
       <strong>説明:</strong><br>
-      <%=simple_format@event.description%>
+      <%= simple_format @event.description %>
     </div>
 
     <div class="mb-3">
       <strong>主催者:</strong><br>
-      <%=@event.user.name%>
+      <%= @event.user.name %>
     </div>
 
     <div class="mb-3">
-      <strong>参加者 (<%=@participations.count%>名):</strong>
-      <%if@participations.any?%>
+      <strong>参加者 (<%= @participations.count %>名):</strong>
+      <% if @participations.any? %>
         <ul class="list-unstyled">
-          <%@participations.eachdo|participation|%>
+          <% @participations.each do |participation| %>
             <li>
-              <%= participation.user.name%>
-              <%if participation.comment.present?%>
-                - <%= participation.comment%>
-              <%end%>
+              <%= participation.user.name %>
+              <% if participation.comment.present? %>
+                - <%= participation.comment %>
+              <% end %>
             </li>
-          <%end%>
+          <% end %>
         </ul>
-      <% else%>
+      <% else %>
         <p class="text-muted">まだ参加者がいません</p>
-      <%end%>
+      <% end %>
     </div>
 
     <div class="btn-group" role="group">
-      <%=link_to"一覧に戻る", events_path,class:"btn btn-secondary"%>
-      <%if logged_in?&&@event.created_by?(current_user)%>
-        <%=link_to"編集", edit_event_path(@event),class:"btn btn-warning"%>
-        <%=button_to"削除",@event, method::delete,
-            data:{ confirm:"本当に削除しますか？"},
-class:"btn btn-danger"%>
-      <%end%>
+      <%= link_to "一覧に戻る", events_path, class: "btn btn-secondary" %>
+      <% if logged_in? && @event.created_by?(current_user) %>
+        <%= link_to "編集", edit_event_path(@event), class: "btn btn-warning" %>
+        <%= button_to "削除", @event, method: :delete,
+            data: { confirm: "本当に削除しますか？" },
+            class: "btn btn-danger" %>
+      <% end %>
     </div>
   </div>
 </div>

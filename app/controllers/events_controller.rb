@@ -37,7 +37,20 @@ class EventsController < ApplicationController
   end
 
   def destroy
+    @event.destroy
+    redirect_to events_path, notice: "イベントを削除しました"
+  end
+
+  private
+
+  def set_event
     @event = Event.find(params[:id])
+  end
+
+  def authenticate_user!
+    unless logged_in?
+      redirect_to root_path, alert: "ログインしてください"
+    end
   end
 
   def authorized_event!
