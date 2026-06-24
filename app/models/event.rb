@@ -18,6 +18,10 @@ class Event < ApplicationRecord
     self.user_id == user.id
   end
 
+  def owner_name
+    user&.name || "退会したユーザー"
+  end
+
   private
 
   def end_at_must_be_after_start_at

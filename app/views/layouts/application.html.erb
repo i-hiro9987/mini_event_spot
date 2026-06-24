@@ -18,12 +18,19 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="container">
         <%= link_to "MiniEventSpot", root_path, class: "navbar-brand" %>
+        <!-- ナビゲーションバーのログイン中部分 -->
         <div class="navbar-nav ms-auto">
           <% if logged_in? %>
-            <span class="navbar-text me-3">
-              <%= current_user.name %>
-            </span>
-            <%= button_to "ログアウト", logout_path, method: :delete, class: "btn btn-outline-light", form: { style: "display: inline;" } %>
+            <div class="dropdown">
+              <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                <%= current_user.name %>
+              </button>
+              <ul class="dropdown-menu">
+                <li><%= link_to "退会", new_retirement_path, class: "dropdown-item text-danger" %></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><%= button_to "ログアウト", logout_path, method: :delete, class: "dropdown-item", form: { style: "display: inline;" } %></li>
+              </ul>
+            </div>
           <% else %>
             <%= button_to "GitHubでログイン", "/auth/github", method: :post, class: "btn btn-light", data: { turbo: false } %>
           <% end %>

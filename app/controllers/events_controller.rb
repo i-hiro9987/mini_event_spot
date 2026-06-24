@@ -9,6 +9,7 @@ class EventsController < ApplicationController
 
   def show
     @participations = @event.participations.includes(:user)
+    @current_participation = @event.participations.find_by(user: current_user) if logged_in?
   end
 
   def new

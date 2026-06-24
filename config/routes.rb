@@ -7,9 +7,13 @@ Rails.application.routes.draw do
 
   root "welcome#index"
 
-  resources :events
+  resources :events do
+    resources :participations, only: [ :create, :destroy ]
+  end
 
   get "/auth/:provider/callback", to: "sessions#create"
   post "/auth/:provider/callback", to: "sessions#create"
   delete "logout", to: "sessions#destroy"
+
+  resource :retirement, only: [ :new, :destroy ]
 end

@@ -23,8 +23,9 @@
               <small class="text-muted">
                 <i class="bi bi-geo-alt"></i> <%= event.location %>
               </small><br>
+              <!-- 主催者表示部分 -->
               <small class="text-muted">
-                主催: <%= event.user.name %>
+              主催: <%= event.owner_name%>
               </small>
             </p>
             <%= link_to "詳細を見る", event, class: "btn btn-sm btn-outline-primary" %>

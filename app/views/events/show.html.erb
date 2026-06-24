@@ -18,25 +18,53 @@
     </div>
 
     <div class="mb-3">
-      <strong>主催者:</strong><br>
-      <%= @event.user.name %>
+        <strong>主催者:</strong><br>
+        <%=@event.owner_name%>
     </div>
+
+    <!-- 参加ボタンエリア（6-7-1） -->
+    <% if logged_in? && !@event.created_by?(current_user) %>
+      <div class="mb-3">
+        <% if @current_participation %>
+          <div class="alert alert-success">
+            あなたはこのイベントに参加しています
+            <% if @current_participation.comment.present? %>
+              （コメント: <%= @current_participation.comment %> ）
+            <% end %>
+          </div>
+          <%= button_to "参加をキャンセル", event_participation_path(@event, @current_participation),
+              method: :delete,
+              data: { confirm: "参加をキャンセルしますか？" },
+              class: "btn btn-warning" %>
+        <% else %>
+          <%= form_with(url: event_participations_path(@event), local: true) do |f| %>
+            <div class="mb-2">
+              <%= f.label :comment, "参加コメント（任意）", class: "form-label" %>
+              <%= f.text_field :comment, class: "form-control", placeholder: "よろしくお願いします！" %>
+              <small class="text-muted">最大30文字</small>
+            </div>
+            <%= f.submit "このイベントに参加する", class: "btn btn-success" %>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
 
     <div class="mb-3">
       <strong>参加者 (<%= @participations.count %>名):</strong>
       <% if @participations.any? %>
-        <ul class="list-unstyled">
+        <ul class="list-unstyled mt-2">
           <% @participations.each do |participation| %>
-            <li>
-              <%= participation.user.name %>
+            <li class="mb-1">
+              <img src="<%= participation.user.image_url %>" width="24" height="24" class="rounded-circle" alt="">
+              <strong><%= participation.user.name %></strong>
               <% if participation.comment.present? %>
-                - <%= participation.comment %>
+                <span class="text-muted">- <%= participation.comment %></span>
               <% end %>
             </li>
           <% end %>
         </ul>
       <% else %>
-        <p class="text-muted">まだ参加者がいません</p>
+        <p class="text-muted mt-2">まだ参加者がいません</p>
       <% end %>
     </div>
 

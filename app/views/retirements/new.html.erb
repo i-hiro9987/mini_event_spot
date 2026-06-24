@@ -1,0 +1,49 @@
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title text-danger">退会確認</h1>
+
+    <div class="alert alert-warning mt-4">
+      <strong>退会すると以下のデータが削除されます:</strong>
+      <ul>
+        <li>あなたのアカウント情報</li>
+        <li>過去のイベント参加履歴</li>
+      </ul>
+      <strong>あなたが作成したイベント情報は残ります</strong>（主催者名は「退会したユーザー」と表示されます）
+    </div>
+
+    <% if @future_created_events.any? || @future_participated_events.any? %>
+      <div class="alert alert-danger">
+        <strong>以下の未開催イベントがあるため、退会できません:</strong>
+
+        <% if @future_created_events.any? %>
+          <p class="mt-2 mb-1"><strong>作成したイベント:</strong></p>
+          <ul>
+            <% @future_created_events.each do |event| %>
+              <li><%= link_to event.name, event %> (<%= l event.start_at, format: :long %>)</li>
+            <% end %>
+          </ul>
+        <% end %>
+
+        <% if @future_participated_events.any? %>
+          <p class="mt-2 mb-1"><strong>参加予定のイベント:</strong></p>
+          <ul>
+            <% @future_participated_events.each do |event| %>
+              <li><%= link_to event.name, event %> (<%= l event.start_at, format: :long %>)</li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+
+      <%= link_to "戻る", root_path, class: "btn btn-secondary" %>
+    <% else %>
+      <p class="mt-4">本当に退会しますか？この操作は取り消せません。</p>
+
+      <div class="mt-4">
+        <%= button_to "退会する", retirement_path, method: :delete,
+            data: { confirm: "本当に退会しますか？" },
+            class: "btn btn-danger" %>
+        <%= link_to "キャンセル", root_path, class: "btn btn-secondary ms-2" %>
+      </div>
+    <% end %>
+  </div>
+</div>
