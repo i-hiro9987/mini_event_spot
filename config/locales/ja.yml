@@ -1,0 +1,20 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+      event: イベント
+      participation: 参加
+    attributes:
+      event:
+        name: イベント名
+        description: 説明
+        location: 開催場所
+        start_at: 開始時刻
+        end_at: 終了時刻
+      participation:
+        comment: コメント
+    errors:
+      messages:
+        blank: を入力して下さい
+        too_long: は%{count}文字以内で入力してください
+        too_short: は%{count}文字以上で入力してください

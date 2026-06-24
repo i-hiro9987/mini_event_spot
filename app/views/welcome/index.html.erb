@@ -1,0 +1,12 @@
+<div class="jumbotron bg-light p-5 rounded">
+  <h1 class="display-4">MiniEventSpot へようこそ！</h1>
+  <p class="lead">勉強会やミートアップのイベントを作成・参加できるプラットフォームです。</p>
+  <hr class="my-4">
+  <%if logged_in?%>
+    <%=link_to"イベント一覧", events_path,class:"btn btn-primary btn-lg"%>
+    <%=link_to"新規イベント作成", new_event_path,class:"btn btn-success btn-lg"%>
+  <% else%>
+    <p>まずはGitHubアカウントでログインしてください。</p>
+    <%=link_to"GitHubでログイン","/auth/github", method::post,class:"btn btn-primary btn-lg"%>
+  <%end%>
+</div>
